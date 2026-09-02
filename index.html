@@ -1341,7 +1341,38 @@ body:has(#intro:target) .mini-nav{transform:translateX(-50%)!important;opacity:1
 <img alt="" id="lightboxImage"/>
 <button aria-label="Foto siguiente" class="lightbox-control lightbox-next" id="lightboxNext" type="button">›</button>
 </div>
-\n<script id="bj-countdown-runtime">\n(function(){\n  var WEDDING_UTC = Date.UTC(2027, 4, 8, 10, 30, 0); /* 12:30 CEST */\n  var timer = null;\n  function pad(value, size){\n    var s = String(Math.max(0, value));\n    while(s.length < size) s = '0' + s;\n    return s;\n  }\n  function renderCountdown(){\n    var remaining = Math.max(0, WEDDING_UTC - new Date().getTime());\n    var days = Math.floor(remaining / 86400000);\n    var hours = Math.floor((remaining % 86400000) / 3600000);\n    var minutes = Math.floor((remaining % 3600000) / 60000);\n    var seconds = Math.floor((remaining % 60000) / 1000);\n    var values = {days:days, hours:hours, minutes:minutes, seconds:seconds};\n    for(var id in values){\n      if(!Object.prototype.hasOwnProperty.call(values,id)) continue;\n      var el = document.getElementById(id);\n      if(el) el.textContent = pad(values[id], id === 'days' ? 3 : 2);\n    }\n    if(timer) window.clearTimeout(timer);\n    timer = window.setTimeout(renderCountdown, 1000 - (new Date().getTime() % 1000) + 15);\n  }\n  renderCountdown();\n  window.addEventListener('pageshow', renderCountdown, false);\n  document.addEventListener('visibilitychange', function(){\n    if(!document.hidden) renderCountdown();\n  }, false);\n})();\n</script>\n<script>
+
+<script id="bj-countdown-runtime">
+(function(){
+  var WEDDING_UTC = Date.UTC(2027, 4, 8, 10, 30, 0); /* 12:30 CEST */
+  var timer = null;
+  function pad(value, size){
+    var s = String(Math.max(0, value));
+    while(s.length < size) s = '0' + s;
+    return s;
+  }
+  function renderCountdown(){
+    var remaining = Math.max(0, WEDDING_UTC - new Date().getTime());
+    var days = Math.floor(remaining / 86400000);
+    var hours = Math.floor((remaining % 86400000) / 3600000);
+    var minutes = Math.floor((remaining % 3600000) / 60000);
+    var seconds = Math.floor((remaining % 60000) / 1000);
+    var values = {days:days, hours:hours, minutes:minutes, seconds:seconds};
+    for(var id in values){
+      if(!Object.prototype.hasOwnProperty.call(values,id)) continue;
+      var el = document.getElementById(id);
+      if(el) el.textContent = pad(values[id], id === 'days' ? 3 : 2);
+    }
+    if(timer) window.clearTimeout(timer);
+    timer = window.setTimeout(renderCountdown, 1000 - (new Date().getTime() % 1000) + 15);
+  }
+  renderCountdown();
+  window.addEventListener('pageshow', renderCountdown, false);
+  document.addEventListener('visibilitychange', function(){
+    if(!document.hidden) renderCountdown();
+  }, false);
+})();
+</script>\n<script>
 (function(){
   'use strict';
   const body=document.body;
