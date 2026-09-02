@@ -68,7 +68,7 @@ body.invite-open .mini-nav{transform:translateX(-50%) translateY(0);opacity:1;po
 /* ----- Hero ----- */
 .bj15-intro{position:relative;isolation:isolate;min-height:100svh;display:grid;place-items:center;overflow:hidden;padding:70px 22px 96px;text-align:center;color:var(--sage-dark);background:#e8e1d5}
 @supports(height:100dvh){.bj15-intro{min-height:100dvh}}
-.bj18-main-photo{position:absolute;inset:0;z-index:-3;width:100%;height:100%;max-width:none;object-fit:cover;object-position:center 42%}
+.bj18-main-photo{position:absolute;inset:0;z-index:-3;width:100%;height:100%;max-width:none;object-fit:cover;object-position:center 30%}
 .bj15-intro::before{content:"";position:absolute;inset:0;z-index:-2;background:linear-gradient(180deg,rgba(248,244,237,.23),rgba(248,244,237,.30) 48%,rgba(248,244,237,.58))}
 .bj15-intro::after{content:"";position:absolute;inset:0;z-index:-1;box-shadow:inset 0 -110px 120px -80px rgba(244,239,228,.9);pointer-events:none}
 .bj15-intro-inner{width:min(100%,560px);margin:auto;display:flex;flex-direction:column;align-items:center}
@@ -501,7 +501,7 @@ body:has(#open-invitation:not(:target)){overflow:hidden!important;}
 .bj18-main-photo{
   position:absolute!important;inset:0!important;z-index:0!important;
   width:100%!important;height:100%!important;max-width:none!important;
-  object-fit:cover!important;object-position:center 43%!important;
+  object-fit:cover!important;object-position:center 30%!important;
   display:block!important;opacity:1!important;
 }
 .bj15-intro::after{
@@ -706,7 +706,6 @@ body.v5-invite-locked{position:fixed!important;inset:0!important;width:100%!impo
 }
 </style>
 
-\n<style id="bj-v6-rsvp-center">\n.rsvp-details{width:100%!important;text-align:center!important}\n.rsvp-open{display:flex!important;width:max-content!important;max-width:min(330px,100%)!important;margin-left:auto!important;margin-right:auto!important;justify-content:center!important}\n</style>\n
 
 <style id="bj-v7-rsvp-center-final">
 /* V7: centra de forma inequívoca el CTA de RSVP en todos los navegadores. */
@@ -981,6 +980,22 @@ body:has(#intro:target) .ly-gate{display:none!important}
 }
 #intro.ly-hero-enter .ly-name-second{
   animation:lyFadeLeft 2.7s cubic-bezier(.22,.61,.36,1) .64s both!important;
+}
+</style>
+
+<style id="bj-hero-photo-responsive">
+/* Portrait hero: on wide screens, anchor the photo to the top so it doesn't crop faces. */
+@media (min-aspect-ratio: 5/4){
+  .bj18-main-photo{object-position:center 18%!important}
+}
+@media (min-aspect-ratio: 4/3){
+  .bj18-main-photo{object-position:center top!important}
+}
+@media (min-width: 1100px) and (min-aspect-ratio: 3/2){
+  .bj18-main-photo{
+    object-fit:contain!important;
+    object-position:center center!important;
+  }
 }
 </style>
 
@@ -1372,7 +1387,8 @@ body:has(#intro:target) .mini-nav{transform:translateX(-50%)!important;opacity:1
     if(!document.hidden) renderCountdown();
   }, false);
 })();
-</script>\n<script>
+</script>
+<script>
 (function(){
   'use strict';
   const body=document.body;
