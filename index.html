@@ -616,7 +616,7 @@ body.v4-invite-locked{position:fixed!important;inset:0!important;width:100%!impo
 }
 @supports(height:100dvh){.ly-gate{height:100dvh}}
 .ly-gate-canvas{
-  position:relative;width:min(100vw,600px);height:100%;margin:auto;overflow:hidden;
+  position:relative;width:100%;height:100%;margin:auto;overflow:hidden;
   background:#f4efe4;isolation:isolate;
 }
 .ly-envelope{
@@ -673,7 +673,6 @@ body.v5-invite-locked{position:fixed!important;inset:0!important;width:100%!impo
 @keyframes lyFade{from{opacity:0}to{opacity:1}}
 
 @media(min-width:701px){
-  .ly-gate-canvas{box-shadow:0 18px 54px rgba(57,66,56,.10)}
   .ly-hero-copy{width:480px!important}
   .ly-countdown{width:320px}
 }
@@ -1009,7 +1008,7 @@ body:has(#intro:target) .ly-gate{display:none!important}
 /* Sobre realista: imagen externa con el sello de cera integrado. */
 .ly-gate .ly-envelope{
   object-fit:cover!important;
-  object-position:center center!important;
+  object-position:50% var(--bj-env-py,50%)!important;
 }
 </style>
 
@@ -1043,7 +1042,7 @@ body:has(#intro:target) .ly-gate{display:none!important}
 }
 .ly-gate .ly-envelope-flap{
   object-fit:cover!important;
-  object-position:center center!important;
+  object-position:50% var(--bj-env-py,50%)!important;
   backface-visibility:visible!important;
   -webkit-backface-visibility:visible!important;
   clip-path:var(--bj-flap-clip,none)!important;
@@ -1511,28 +1510,38 @@ body:has(#intro:target) .mini-nav{transform:translateX(-50%)!important;opacity:1
   const canvas=gate?.querySelector('.ly-gate-canvas');
   const monogram=document.getElementById('sealMonogram');
 
-  /* La imagen se pinta con object-fit:cover, así que hay que llevar las
-     coordenadas del dibujo a las del elemento. */
+  /* El sobre llena la pantalla con object-fit:cover, así que hay que llevar las
+     coordenadas del dibujo a las del elemento. Del recorte vertical se elige el
+     encuadre: el sello tiene que quedar dentro siempre, y el filo del faldón
+     también mientras la pantalla no sea demasiado apaisada. */
   function envMap(){
     if(!envImg||!canvas)return null;
     const bw=envImg.offsetWidth||canvas.clientWidth,bh=envImg.offsetHeight||canvas.clientHeight;
     if(!bw||!bh)return null;
     const iw=envImg.naturalWidth||1696,ih=envImg.naturalHeight||2528;
-    const sc=Math.max(bw/iw,bh/ih),dw=iw*sc,dh=ih*sc;
-    return {dw:dw,dh:dh,ox:(bw-dw)/2,oy:(bh-dh)/2};
+    const sc=Math.max(bw/iw,bh/ih),dw=iw*sc,dh=ih*sc,slack=dh-bh;
+    const lo=Math.min(Math.max(.784*dh-bh,0),slack),hi=Math.min(.372*dh,slack);
+    const cut=hi>=lo?Math.min(Math.max(slack/2,lo),hi):lo;
+    const py=slack>0?cut/slack:.5;
+    return {dw:dw,dh:dh,ox:(bw-dw)/2,oy:-py*slack,py:py};
   }
-  function placeMonogram(){
+  /* Fija el encuadre de la imagen y coloca el monograma sobre el sello. */
+  function fitEnvelope(){
     const m=envMap();
-    if(!m||!monogram)return;
-    const r=ENV_SEAL.r*m.dw;
-    monogram.style.left=(m.ox+ENV_SEAL.x*m.dw-r).toFixed(1)+'px';
-    monogram.style.top=(m.oy+ENV_SEAL.y*m.dh-r).toFixed(1)+'px';
-    monogram.style.width=monogram.style.height=(2*r).toFixed(1)+'px';
-    monogram.style.fontSize=(.78*r).toFixed(1)+'px';
+    if(!m)return null;
+    canvas.style.setProperty('--bj-env-py',(100*m.py).toFixed(2)+'%');
+    if(monogram){
+      const r=ENV_SEAL.r*m.dw;
+      monogram.style.left=(m.ox+ENV_SEAL.x*m.dw-r).toFixed(1)+'px';
+      monogram.style.top=(m.oy+ENV_SEAL.y*m.dh-r).toFixed(1)+'px';
+      monogram.style.width=monogram.style.height=(2*r).toFixed(1)+'px';
+      monogram.style.fontSize=(.78*r).toFixed(1)+'px';
+    }
+    return m;
   }
-  placeMonogram();
-  envImg?.addEventListener('load',placeMonogram,{once:true});
-  window.addEventListener('resize',placeMonogram,{passive:true});
+  fitEnvelope();
+  envImg?.addEventListener('load',fitEnvelope,{once:true});
+  window.addEventListener('resize',fitEnvelope,{passive:true});
 
   lockScroll();
   window.addEventListener('pageshow',function(){
@@ -1592,7 +1601,7 @@ body:has(#intro:target) .mini-nav{transform:translateX(-50%)!important;opacity:1
       /* Se recalcula si cambia el tamaño de la ventana para que el corte no se
          despegue nunca del filo. */
       const layout=()=>{
-        const m=envMap();
+        const m=fitEnvelope();
         if(!m)return;
         const X=f=>(m.ox+f*m.dw).toFixed(1)+'px';
         const Y=f=>(m.oy+f*m.dh).toFixed(1)+'px';
@@ -1609,7 +1618,6 @@ body:has(#intro:target) .mini-nav{transform:translateX(-50%)!important;opacity:1
         cvs.style.setProperty('--bj-flap-clip','polygon('+flapPts.join(',')+')');
         cvs.style.setProperty('--bj-body-clip','polygon('+bodyPts.join(',')+')');
         gsap.set(layer,{transformOrigin:(m.ox+m.dw/2).toFixed(1)+'px '+m.oy.toFixed(1)+'px'});
-        placeMonogram();
         /* Parche del mordisco: papel de la misma columna, 0,218 de alto más
            abajo, que es zona lisa y ya fuera de la sombra del sello. */
         const sx=(m.ox+ENV_SEAL.x*m.dw).toFixed(1),sy=(m.oy+ENV_SEAL.y*m.dh).toFixed(1);
