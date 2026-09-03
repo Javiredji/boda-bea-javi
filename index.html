@@ -626,21 +626,6 @@ body.v4-invite-locked{position:fixed!important;inset:0!important;width:100%!impo
   transition:transform .72s cubic-bezier(.22,.61,.36,1),opacity .56s ease .12s,filter .56s ease;
   user-select:none;-webkit-user-drag:none;
 }
-.ly-seal{
-  position:absolute;left:55.2%;top:50%;z-index:4;width:clamp(72px,14svh,112px);aspect-ratio:1;
-  transform:translate(-50%,-50%);border-radius:48% 52% 47% 53% / 51% 46% 54% 49%;
-  display:grid;place-items:center;color:#fff8ef;
-  background:
-    radial-gradient(circle at 36% 29%,rgba(255,255,255,.30),transparent 14%),
-    radial-gradient(circle at 50% 52%,#b94f49 0 45%,#9e3d39 46% 59%,#87312f 61% 67%,#aa4641 70% 100%);
-  box-shadow:0 7px 16px rgba(99,39,37,.24),inset 0 0 0 2px rgba(255,255,255,.22),inset 0 -7px 13px rgba(91,30,29,.18);
-  transition:transform .45s cubic-bezier(.2,.75,.25,1),opacity .42s ease,filter .42s ease;
-  pointer-events:none;
-}
-.ly-seal::before,.ly-seal::after{content:"";position:absolute;border-radius:50%;pointer-events:none}
-.ly-seal::before{inset:12%;border:1px solid rgba(107,35,33,.30);box-shadow:0 0 0 3px rgba(255,255,255,.08)}
-.ly-seal::after{inset:4%;border:1px solid rgba(255,255,255,.16)}
-.ly-seal span{position:relative;z-index:2;font:400 clamp(23px,4.5svh,37px)/1 var(--serif);letter-spacing:-.08em;text-shadow:0 1px 0 rgba(80,22,21,.28)}
 .ly-open-prompt{
   position:absolute;top:max(68px,calc(env(safe-area-inset-top) + 54px));left:0;z-index:5;width:100%;
   text-align:center;color:#596455;opacity:.88;
@@ -651,7 +636,6 @@ body.v4-invite-locked{position:fixed!important;inset:0!important;width:100%!impo
 .ly-open-hit:focus-visible{outline:2px solid #66745d;outline-offset:-8px}
 .ly-gate.is-opening{pointer-events:none;opacity:0}
 .ly-gate.is-opening .ly-envelope{transform:translate3d(0,-8px,0) scale(1.018);opacity:.86;filter:drop-shadow(0 4px 12px rgba(57,66,56,.05))}
-.ly-gate.is-opening .ly-seal{transform:translate(-50%,-50%) scale(.88);opacity:0;filter:blur(.2px)}
 .ly-gate.is-opening .ly-open-prompt{opacity:0;transform:translateY(-5px)}
 .ly-gate.is-gone{display:none}
 body.v5-invite-locked{position:fixed!important;inset:0!important;width:100%!important;overflow:hidden!important;overscroll-behavior:none!important;touch-action:none!important}
@@ -701,7 +685,7 @@ body.v5-invite-locked{position:fixed!important;inset:0!important;width:100%!impo
   .ly-unit{min-width:39px}
 }
 @media(prefers-reduced-motion:reduce){
-  .ly-gate,.ly-envelope,.ly-seal,.ly-open-prompt{transition-duration:.01ms!important}
+  .ly-gate,.ly-envelope,.ly-open-prompt{transition-duration:.01ms!important}
   #intro.ly-hero-enter *{animation-duration:.01ms!important;animation-delay:0s!important}
 }
 </style>
@@ -916,49 +900,8 @@ body:has(#intro:target) .ly-gate{display:none!important}
 #intro.ly-hero-enter .ly-hero-place{animation:lyFadeRight 2.7s cubic-bezier(.22,.61,.36,1) 1.38s both!important}
 #intro.ly-hero-enter .ly-countdown{animation:lyFadeLeft 2.55s cubic-bezier(.22,.61,.36,1) 1.72s both!important}
 
-.ly-seal{
-  width:92px!important;height:92px!important;
-  background:
-    radial-gradient(circle at 34% 28%, rgba(255,255,255,.34) 0 7%, transparent 24%),
-    radial-gradient(circle at 50% 45%, #b33430 0 34%, #96231f 63%, #7c1714 82%, #68110f 100%)!important;
-  border-radius:50%!important;
-  box-shadow:
-    0 14px 22px rgba(78,22,20,.22),
-    inset 0 -7px 12px rgba(84,10,10,.28),
-    inset 0 5px 8px rgba(255,255,255,.12),
-    inset 2px 0 3px rgba(255,255,255,.08)!important;
-  transform:translate(-50%,-50%) rotate(-5deg)!important;
-  overflow:hidden!important;
-}
-.ly-seal::before{
-  inset:12%!important;
-  border:1px solid rgba(102,20,18,.34)!important;
-  box-shadow:0 0 0 3px rgba(255,255,255,.07), inset 0 1px 1px rgba(255,255,255,.12)!important;
-}
-.ly-seal::after{
-  content:""!important;
-  position:absolute!important;
-  inset:-1px!important;
-  border-radius:50%!important;
-  background:
-    radial-gradient(circle at 20% 18%, rgba(255,255,255,.16) 0 2.2%, transparent 3%),
-    radial-gradient(circle at 73% 26%, rgba(255,255,255,.11) 0 1.7%, transparent 2.4%),
-    radial-gradient(circle at 32% 76%, rgba(102,20,18,.16) 0 2.2%, transparent 3%),
-    radial-gradient(circle at 74% 69%, rgba(102,20,18,.14) 0 1.8%, transparent 2.5%),
-    radial-gradient(circle at 52% 90%, rgba(72,10,9,.14) 0 3%, transparent 4.2%)!important;
-  mix-blend-mode:multiply!important;
-  opacity:.9!important;
-  pointer-events:none!important;
-}
-.ly-seal span{
-  font:400 clamp(23px,4.4svh,35px)/1 var(--serif)!important;
-  letter-spacing:-.08em!important;
-  color:#fff6f2!important;
-  text-shadow:0 1px 1px rgba(87,17,15,.42)!important;
-}
 @media (max-width:700px){
   .ly-hero-monogram-vertical{font-size:clamp(68px,17vw,98px)!important}
-  .ly-seal{width:84px!important;height:84px!important}
 }
 </style>
 
@@ -1063,23 +1006,40 @@ body:has(#intro:target) .ly-gate{display:none!important}
 </style>
 
 <style id="bj-gemini-envelope-image">
-/* Sobre realista: imagen externa con sello y encaje integrados. */
+/* Sobre realista: imagen externa con el sello de cera integrado. */
 .ly-gate .ly-envelope{
   object-fit:cover!important;
   object-position:center center!important;
 }
-.ly-gate .ly-seal{display:none!important}
 </style>
 
 <style id="bj-envelope-real-fold">
 /* El sobre se abre por donde se abre de verdad: el faldón gira sobre su doblez
-   y se lleva consigo el encaje y el sello de cera. Los recortes exactos se
+   y se lleva consigo el sello de cera con el monograma. Los recortes exactos se
    calculan en el script a partir de la geometría medida sobre la imagen, para
-   que el corte caiga justo por el filo del encaje en cualquier pantalla. */
+   que el corte caiga justo por el filo del papel en cualquier pantalla. */
 .ly-gate-canvas.has-perspective{
   perspective:3200px!important;
   -webkit-perspective:3200px!important;
   perspective-origin:50% 32%!important;
+}
+/* Monograma grabado en la cera. El script lo coloca sobre el sello. */
+.ly-seal-mono{
+  position:absolute;z-index:10;pointer-events:none;
+  display:flex;align-items:center;justify-content:center;
+  font:400 1em/1 var(--serif);
+  letter-spacing:-.015em;
+  color:rgba(58,50,26,.60);
+  text-shadow:0 1px 0 rgba(240,235,212,.32),0 -1px 1px rgba(26,22,10,.20);
+}
+.ly-seal-mono i{
+  font-size:.60em;font-style:italic;opacity:.78;
+  margin:0 .05em;transform:translateY(-.04em);
+}
+/* El faldón y su monograma giran juntos como una sola pieza de papel. */
+.ly-flap-layer{
+  position:absolute;inset:0;z-index:9;pointer-events:none;
+  filter:brightness(1);
 }
 .ly-gate .ly-envelope-flap{
   object-fit:cover!important;
@@ -1088,12 +1048,18 @@ body:has(#intro:target) .ly-gate{display:none!important}
   -webkit-backface-visibility:visible!important;
   clip-path:var(--bj-flap-clip,none)!important;
   -webkit-clip-path:var(--bj-flap-clip,none)!important;
-  filter:brightness(1);
 }
 .ly-gate .ly-envelope.is-body{
   clip-path:var(--bj-body-clip,none)!important;
   -webkit-clip-path:var(--bj-body-clip,none)!important;
   z-index:4!important;
+}
+/* El sello se va con el faldón y deja un mordisco redondo en el cuerpo del
+   sobre. Este parche lo rellena con papel tomado de más abajo de la propia
+   imagen, con el borde difuminado para que no se note el empalme. */
+.ly-envelope-patch{
+  position:absolute;inset:0;z-index:5;pointer-events:none;
+  background-repeat:no-repeat;
 }
 /* Interior del sobre: el papel visto por dentro, en penumbra. */
 .ly-envelope-lining{
@@ -1129,7 +1095,7 @@ body:has(#intro:target) .mini-nav{transform:translateX(-50%)!important;opacity:1
 </style></noscript>
 <section class="ly-gate" id="invitationGate" aria-label="Abrir invitación">
   <div class="ly-gate-canvas">
-    <img class="ly-envelope" src="Gemini_Generated_Image_lixy7vlixy7vlixy.jpeg" alt="Sobre de la invitación de Bea y Javi" decoding="sync" fetchpriority="high" />
+    <img class="ly-envelope" src="iamge.jpeg" alt="Sobre de la invitación de Bea y Javi" decoding="sync" fetchpriority="high" />
     <div class="ly-invitation-card" aria-hidden="true">
       <div class="card-ornament"></div>
       <div class="card-names">Bea <span class="card-amp">&amp;</span> Javi</div>
@@ -1137,7 +1103,7 @@ body:has(#intro:target) .mini-nav{transform:translateX(-50%)!important;opacity:1
       <div class="card-venue">Cuenca</div>
       <div class="card-ornament"></div>
     </div>
-    <div class="ly-seal" aria-hidden="true"><span>B&amp;J</span></div>
+    <div class="ly-seal-mono" id="sealMonogram" aria-hidden="true">B<i>&amp;</i>J</div>
     <div class="ly-open-prompt" aria-hidden="true">Pulsa para abrir</div>
     <a class="ly-open-hit" id="openInvitation" href="#intro" role="button" aria-label="Abrir invitación de Bea y Javi"></a>
   </div>
@@ -1534,6 +1500,40 @@ body:has(#intro:target) .mini-nav{transform:translateX(-50%)!important;opacity:1
     body.classList.remove('v8-invite-locked');
     requestAnimationFrame(()=>window.scrollTo(0,lockedY));
   }
+  /* Geometría medida sobre la imagen del sobre, en fracciones de su ancho y su
+     alto: el sello de cera y el filo por el que el sobre se abre (el borde del
+     faldón, rodeando el sello para que suba con él). */
+  const ENV_SEAL={x:.5206,y:.6748,r:.1229,cut:.138};
+  const ENV_FOLD=[[0.0,0.3848],[0.5292,0.7141],[1.0,0.4029]];
+  const ENV_EDGE=[[0.0,0.3848],[0.3792,0.6207],[0.3833,0.6843],[0.3875,0.6993],[0.3958,0.7144],[0.4125,0.7323],[0.4333,0.7465],[0.4625,0.7588],[0.4958,0.7659],[0.5292,0.7672],[0.5625,0.763],[0.5917,0.7542],[0.6167,0.7413],[0.6333,0.7282],[0.6458,0.7137],[0.6542,0.6981],[0.6583,0.6806],[0.6625,0.626],[1.0,0.4029]];
+
+  const envImg=gate?.querySelector('.ly-envelope');
+  const canvas=gate?.querySelector('.ly-gate-canvas');
+  const monogram=document.getElementById('sealMonogram');
+
+  /* La imagen se pinta con object-fit:cover, así que hay que llevar las
+     coordenadas del dibujo a las del elemento. */
+  function envMap(){
+    if(!envImg||!canvas)return null;
+    const bw=envImg.offsetWidth||canvas.clientWidth,bh=envImg.offsetHeight||canvas.clientHeight;
+    if(!bw||!bh)return null;
+    const iw=envImg.naturalWidth||1696,ih=envImg.naturalHeight||2528;
+    const sc=Math.max(bw/iw,bh/ih),dw=iw*sc,dh=ih*sc;
+    return {dw:dw,dh:dh,ox:(bw-dw)/2,oy:(bh-dh)/2};
+  }
+  function placeMonogram(){
+    const m=envMap();
+    if(!m||!monogram)return;
+    const r=ENV_SEAL.r*m.dw;
+    monogram.style.left=(m.ox+ENV_SEAL.x*m.dw-r).toFixed(1)+'px';
+    monogram.style.top=(m.oy+ENV_SEAL.y*m.dh-r).toFixed(1)+'px';
+    monogram.style.width=monogram.style.height=(2*r).toFixed(1)+'px';
+    monogram.style.fontSize=(.78*r).toFixed(1)+'px';
+  }
+  placeMonogram();
+  envImg?.addEventListener('load',placeMonogram,{once:true});
+  window.addEventListener('resize',placeMonogram,{passive:true});
+
   lockScroll();
   window.addEventListener('pageshow',function(){
     if(gate && !gate.classList.contains('is-gone')){
@@ -1555,26 +1555,32 @@ body:has(#intro:target) .mini-nav{transform:translateX(-50%)!important;opacity:1
     }
 
     gate?.classList.add('gsap-active');
-    const env=gate?.querySelector('.ly-envelope');
+    const env=envImg,cvs=canvas;
     const prm=gate?.querySelector('.ly-open-prompt');
-    const cvs=gate?.querySelector('.ly-gate-canvas');
     const card=gate?.querySelector('.ly-invitation-card');
 
     cvs?.classList.add('has-perspective');
 
-    /* Filo por el que el sobre se abre, medido sobre la imagen en fracciones de
-       su ancho y su alto: va justo por fuera del encaje y rodea el sello de
-       cera, de modo que encaje y sello suben con el faldón. */
-    const LACE=[[0.0,0.4961],[0.385,0.7051],[0.4,0.7252],[0.42,0.7421],[0.445,0.7554],[0.475,0.7648],[0.505,0.7702],[0.54,0.7892],[0.55,0.7849],[1.0,0.5283]];
-
-    let flap=null,mouth=null,lining=null,cleanup=()=>{};
+    let layer=null,mouth=null,lining=null,cleanup=()=>{};
     if(env&&cvs){
-      flap=env.cloneNode(true);
+      const flap=env.cloneNode(true);
       flap.classList.remove('ly-envelope');
       flap.classList.add('ly-envelope-flap');
       flap.removeAttribute('id');
       flap.setAttribute('alt','');
       flap.setAttribute('aria-hidden','true');
+
+      /* El faldón y el monograma del sello viajan en la misma capa. */
+      layer=document.createElement('div');
+      layer.className='ly-flap-layer';
+      layer.setAttribute('aria-hidden','true');
+      layer.appendChild(flap);
+      if(monogram)layer.appendChild(monogram);
+
+      const patch=document.createElement('div');
+      patch.className='ly-envelope-patch';
+      patch.setAttribute('aria-hidden','true');
+      patch.style.backgroundImage='url("'+env.getAttribute('src')+'")';
 
       lining=document.createElement('div');
       lining.className='ly-envelope-lining';
@@ -1583,39 +1589,48 @@ body:has(#intro:target) .mini-nav{transform:translateX(-50%)!important;opacity:1
       mouth.className='ly-envelope-mouth';
       mouth.setAttribute('aria-hidden','true');
 
-      /* La imagen se pinta con object-fit:cover, así que hay que llevar las
-         coordenadas del dibujo a las del elemento antes de recortar. Se
-         recalcula si cambia el tamaño de la ventana para que el corte no se
+      /* Se recalcula si cambia el tamaño de la ventana para que el corte no se
          despegue nunca del filo. */
       const layout=()=>{
-        const bw=env.offsetWidth||cvs.clientWidth,bh=env.offsetHeight||cvs.clientHeight;
-        if(!bw||!bh)return;
-        const iw=env.naturalWidth||1696,ih=env.naturalHeight||2528;
-        const sc=Math.max(bw/iw,bh/ih),dw=iw*sc,dh=ih*sc;
-        const ox=(bw-dw)/2,oy=(bh-dh)/2;
-        const X=f=>(ox+f*dw).toFixed(1)+'px';
-        const Y=f=>(oy+f*dh).toFixed(1)+'px';
-        const Yseam=f=>(oy+f*dh-1.5).toFixed(1)+'px';
+        const m=envMap();
+        if(!m)return;
+        const X=f=>(m.ox+f*m.dw).toFixed(1)+'px';
+        const Y=f=>(m.oy+f*m.dh).toFixed(1)+'px';
+        const Yseam=f=>(m.oy+f*m.dh-1.5).toFixed(1)+'px';
         /* Faldón: del doblez hacia abajo hasta el filo por el que abre. */
         const flapPts=[X(0)+' '+Y(0),X(1)+' '+Y(0)]
-          .concat(LACE.slice().reverse().map(p=>X(p[0])+' '+Y(p[1])));
+          .concat(ENV_EDGE.slice().reverse().map(p=>X(p[0])+' '+Y(p[1])));
         /* Cuerpo: el resto, solapado 1,5 px para que no se vea la costura. */
-        const bodyPts=LACE.map(p=>X(p[0])+' '+Yseam(p[1]))
-          .concat([X(1)+' '+Y(1.001),X(0)+' '+Y(1.001)]);
+        const bottom=[X(1)+' '+Y(1.001),X(0)+' '+Y(1.001)];
+        const bodyPts=ENV_EDGE.map(p=>X(p[0])+' '+Yseam(p[1])).concat(bottom);
+        /* El parche solo puede pintar bajo el pliegue, nunca en el interior. */
+        const foldPts=ENV_FOLD.map(p=>X(p[0])+' '+Yseam(p[1])).concat(bottom);
+        patch.style.clipPath=patch.style.webkitClipPath='polygon('+foldPts.join(',')+')';
         cvs.style.setProperty('--bj-flap-clip','polygon('+flapPts.join(',')+')');
         cvs.style.setProperty('--bj-body-clip','polygon('+bodyPts.join(',')+')');
-        gsap.set(flap,{transformOrigin:(ox+dw/2).toFixed(1)+'px '+oy.toFixed(1)+'px'});
+        gsap.set(layer,{transformOrigin:(m.ox+m.dw/2).toFixed(1)+'px '+m.oy.toFixed(1)+'px'});
+        placeMonogram();
+        /* Parche del mordisco: papel de la misma columna, 0,218 de alto más
+           abajo, que es zona lisa y ya fuera de la sombra del sello. */
+        const sx=(m.ox+ENV_SEAL.x*m.dw).toFixed(1),sy=(m.oy+ENV_SEAL.y*m.dh).toFixed(1);
+        const pr=(1.14*ENV_SEAL.cut*m.dw).toFixed(1);
+        patch.style.backgroundSize=m.dw.toFixed(1)+'px '+m.dh.toFixed(1)+'px';
+        patch.style.backgroundPosition=m.ox.toFixed(1)+'px '+(m.oy-.218*m.dh).toFixed(1)+'px';
+        const mask='radial-gradient(circle '+pr+'px at '+sx+'px '+sy+'px,#000 0 90%,rgba(0,0,0,0) 100%)';
+        patch.style.maskImage=mask;
+        patch.style.webkitMaskImage=mask;
         if(card){
-          card.style.top=(oy+.80*dh).toFixed(1)+'px';
+          card.style.top=(m.oy+.80*m.dh).toFixed(1)+'px';
           card.style.bottom='auto';
-          card.style.height=(.34*dh).toFixed(1)+'px';
+          card.style.height=(.34*m.dh).toFixed(1)+'px';
         }
       };
 
       env.classList.add('is-body');
       cvs.appendChild(lining);
       cvs.appendChild(mouth);
-      cvs.appendChild(flap);
+      cvs.appendChild(patch);
+      cvs.appendChild(layer);
       layout();
       window.addEventListener('resize',layout,{passive:true});
       cleanup=()=>window.removeEventListener('resize',layout);
@@ -1626,13 +1641,13 @@ body:has(#intro:target) .mini-nav{transform:translateX(-50%)!important;opacity:1
 
     tl.to(prm,{opacity:0,y:-10,duration:.32,ease:'power2.out'},0);
 
-    if(flap){
+    if(layer){
       /* El sello cede y el faldón se despega de golpe. */
-      tl.to(flap,{rotateX:-9,duration:.44,ease:'power3.out'},.10);
+      tl.to(layer,{rotateX:-9,duration:.44,ease:'power3.out'},.10);
       /* Y se abre girando sobre el doblez, echándose hacia atrás. */
-      tl.to(flap,{rotateX:-158,duration:1.45,ease:'power2.inOut'},.62);
-      tl.to(flap,{filter:'brightness(.64)',duration:.95,ease:'power1.in'},.62);
-      tl.to(flap,{opacity:0,duration:.4,ease:'power1.in'},1.62);
+      tl.to(layer,{rotateX:-158,duration:1.45,ease:'power2.inOut'},.62);
+      tl.to(layer,{filter:'brightness(.64)',duration:.95,ease:'power1.in'},.62);
+      tl.to(layer,{opacity:0,duration:.4,ease:'power1.in'},1.62);
     }
     if(lining)tl.to(lining,{opacity:1,duration:.5,ease:'power1.out'},.14);
     if(mouth)tl.to(mouth,{opacity:1,duration:.6,ease:'power1.out'},.20);
